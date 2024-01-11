@@ -14,12 +14,14 @@ fun CourseListScreen(navController: NavController, program: String){
 
     var selectedProgram = emptyList<CourseCodes>()
     when(program){
-        "Computer Science" -> selectedProgram = coursesComSci
-        "Robotics" -> selectedProgram = coursesRobotics
+        "CS" -> selectedProgram = coursesComSci
+        "R" -> selectedProgram = coursesRobotics
+        "EY" -> selectedProgram = coursesElectricity
+        "ES" -> selectedProgram = coursesElectronics
     }
     LazyColumn(){
         items(selectedProgram){
-            CourseCard(it,navController = navController)
+            CourseCard(program,it,navController = navController)
         }
     }
 }

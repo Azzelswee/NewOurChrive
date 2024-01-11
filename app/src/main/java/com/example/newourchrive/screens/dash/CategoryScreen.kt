@@ -169,7 +169,7 @@ fun IconCard(categoryButtons: CategoryButtons, dashNavController: NavController)
             .padding(10.dp)
             .clickable(
                 onClick = {
-                    dashNavController.navigate(DashboardCategory.CourseListScreen.name + categoryButtons.name)
+                    dashNavController.navigate(DashboardCategory.CourseListScreen.name + categoryButtons.code)
                 }
             ),
         shape = RoundedCornerShape(10.dp)

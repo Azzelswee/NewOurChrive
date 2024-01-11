@@ -34,7 +34,7 @@ import com.example.newourchrive.ui.theme.RedOrange
 import kotlinx.coroutines.delay
 
 @Composable
-fun Bounce(course: String,navController: NavController,totalTime: Int = 5){
+fun Bounce(course: String?,navController: NavController,program: String?,totalTime: Int = 5){
 
     val redOrangeGradient = Brush.linearGradient(colors = listOf(Gold,RedOrange))
     var remainingTime by remember { mutableIntStateOf(totalTime) }
@@ -55,7 +55,7 @@ fun Bounce(course: String,navController: NavController,totalTime: Int = 5){
         }
         else {
             navController.popBackStack()
-            navController.navigate(MainScreens.QUIZ.name+course)
+            navController.navigate(MainScreens.QUIZ.name + "/$course/$program")
         }
     }
 

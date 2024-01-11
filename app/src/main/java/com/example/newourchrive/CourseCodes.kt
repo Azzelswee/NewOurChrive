@@ -10,25 +10,49 @@ data class CourseCodes(
 )
 
 val coursesComSci = listOf(
-    CourseCodes("CSC121", "DAA"),
-    CourseCodes("CSC122", "CySec"),
-    CourseCodes("CSC123", "Course3"),
-    CourseCodes("CSC124", "Course4"),
-    CourseCodes("CSC125", "Course5"),
-    CourseCodes("CSC126", "Course6"),
-    CourseCodes("CSC127", "Course7"),
-    CourseCodes("CSC128", "Course8"),
-    CourseCodes("CSC129", "Course9")
+    CourseCodes("DAA","Design and Analysis of Algorithms"),
+    CourseCodes( "CySec","Cyber Security"),
+    CourseCodes( "Prog","Programming"),
+    CourseCodes( "DSA","Data Structure and Algorithms"),
+    CourseCodes( "WebDev","Web Development"),
+    CourseCodes( "NetSec","Network and Security"),
+    CourseCodes( "DBMS","Database Management Systems"),
+    CourseCodes( "ML","Machine Learning"),
+    CourseCodes( "SE","Software Engineering")
 )
 
 val coursesRobotics = listOf(
-    CourseCodes("RBT121", "AI Concepts"),
-    CourseCodes("RBT122", "Arduino Concepts"),
-    CourseCodes("RBT123", "Course3"),
-    CourseCodes("RBT124", "Course4"),
-    CourseCodes("RBT125", "Course5"),
-    CourseCodes("RBT126", "Course6"),
-    CourseCodes("RBT127", "Course7"),
-    CourseCodes("RBT128", "Course8"),
-    CourseCodes("RBT129", "Course9")
+    CourseCodes( "AI","Artificial Intelligence"),
+    CourseCodes( "A","Arduino"),
+    CourseCodes( "RF","Robotics Fundamentals"),
+    CourseCodes( "CV","Computer Vision"),
+    CourseCodes( "CMP","Control and Motion Planning"),
+    CourseCodes( "LM","Localization and Mapping"),
+    CourseCodes( "HRI","Human Robot Interaction"),
+    CourseCodes( "RA","Robot Applications"),
+    CourseCodes( "RT","Robotics Trends")
+)
+
+val coursesElectricity = listOf(
+    CourseCodes("CRT", "Circuit"),
+    CourseCodes("S", "Safety"),
+    CourseCodes("PG", "Power and Generation"),
+    CourseCodes("RE", "Renewable Energy"),
+    CourseCodes("M", "Measurement"),
+    CourseCodes("CRTL", "Control"),
+    CourseCodes("PE", "Power Electronics"),
+    CourseCodes("ET", "Emerging Technologies"),
+    CourseCodes("DSPPS", "DSP Power System"),
+)
+
+val coursesElectronics = listOf(
+    CourseCodes("AE", "Analog Electronics"),
+    CourseCodes("DE", "Digital Electronics"),
+    CourseCodes("SCD", "Semiconductor Devices"),
+    CourseCodes("DSPE", "DSP Electronics"),
+    CourseCodes("CS", "Communication Systems"),
+    CourseCodes("MR", "Microwave Radar"),
+    CourseCodes("ES", "Embedded Systems"),
+    CourseCodes("AI", "AI Electronics"),
+    CourseCodes("QC", "Quantum Computing"),
 )

@@ -28,13 +28,18 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -48,6 +53,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
@@ -64,6 +70,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
@@ -72,10 +79,42 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.newourchrive.R
+import com.example.newourchrive.listOfQuestions.aiElectronicsQuestions
+import com.example.newourchrive.listOfQuestions.analogElectronicsQuestions
+import com.example.newourchrive.listOfQuestions.communicationSystemsQuestions
+import com.example.newourchrive.listOfQuestions.digitalElectronicsQuestions
+import com.example.newourchrive.listOfQuestions.dspElectronicsQuestions
+import com.example.newourchrive.listOfQuestions.embeddedSystemsQuestions
+import com.example.newourchrive.listOfQuestions.microwaveRadarQuestions
+import com.example.newourchrive.listOfQuestions.quantumComputingQuestions
+import com.example.newourchrive.listOfQuestions.questionNetAndSec
+import com.example.newourchrive.listOfQuestions.questionPowerGen
 import com.example.newourchrive.listOfQuestions.questionsAI
 import com.example.newourchrive.listOfQuestions.questionsArduino
+import com.example.newourchrive.listOfQuestions.questionsCV
+import com.example.newourchrive.listOfQuestions.questionsCircuit
+import com.example.newourchrive.listOfQuestions.questionsControl
+import com.example.newourchrive.listOfQuestions.questionsControlAndMotionPlan
 import com.example.newourchrive.listOfQuestions.questionsCySec
 import com.example.newourchrive.listOfQuestions.questionsDAA
+import com.example.newourchrive.listOfQuestions.questionsDBMS
+import com.example.newourchrive.listOfQuestions.questionsDSA
+import com.example.newourchrive.listOfQuestions.questionsEmergingTech
+import com.example.newourchrive.listOfQuestions.questionsHRI
+import com.example.newourchrive.listOfQuestions.questionsLocalizationAndMapping
+import com.example.newourchrive.listOfQuestions.questionsML
+import com.example.newourchrive.listOfQuestions.questionsMeasurement
+import com.example.newourchrive.listOfQuestions.questionsPowerElectronics
+import com.example.newourchrive.listOfQuestions.questionsProg
+import com.example.newourchrive.listOfQuestions.questionsRenewEnergy
+import com.example.newourchrive.listOfQuestions.questionsRobotApps
+import com.example.newourchrive.listOfQuestions.questionsRoboticsFund
+import com.example.newourchrive.listOfQuestions.questionsSafety
+import com.example.newourchrive.listOfQuestions.questionsSoftEng
+import com.example.newourchrive.listOfQuestions.questionsTrends
+import com.example.newourchrive.listOfQuestions.questionsWebDev
+import com.example.newourchrive.listOfQuestions.questionsdspPS
+import com.example.newourchrive.listOfQuestions.semiconductorDevicesQuestions
 import com.example.newourchrive.navigation.MainScreens
 import com.example.newourchrive.screens.quiz.question.Question
 import com.example.newourchrive.ui.theme.Gold
@@ -88,14 +127,64 @@ import kotlin.random.Random
 @Composable
 fun QuizCard(
     navController: NavController,
-    course: String
+    course: String?,
+    program: String?
 ){
     var quizQuestions = emptyList<Question>()
-    when(course){
-        "DAA" -> quizQuestions = questionsDAA
-        "CySec" -> quizQuestions = questionsCySec
-        "AI Concepts" -> quizQuestions = questionsAI
-        "Arduino Concepts" -> quizQuestions = questionsArduino
+    println("$course $program")
+    when(program){
+        "CS" -> {
+            when(course){
+                "DAA" -> quizQuestions = questionsDAA
+                "CySec" -> quizQuestions = questionsCySec
+                "Prog" -> quizQuestions = questionsProg
+                "DSA" -> quizQuestions = questionsDSA
+                "WebDev" -> quizQuestions = questionsWebDev
+                "NetSec" -> quizQuestions = questionNetAndSec
+                "DBMS" -> quizQuestions = questionsDBMS
+                "ML" -> quizQuestions = questionsML
+                "SE" -> quizQuestions = questionsSoftEng
+            }
+        }
+        "R" -> {
+            when(course){
+                "AI" -> quizQuestions = questionsAI
+                "A" -> quizQuestions = questionsArduino
+                "RF" -> quizQuestions = questionsRoboticsFund
+                "CV" -> quizQuestions = questionsCV
+                "CMP" -> quizQuestions = questionsControlAndMotionPlan
+                "LM" -> quizQuestions = questionsLocalizationAndMapping
+                "HRI" -> quizQuestions = questionsHRI
+                "RA" -> quizQuestions = questionsRobotApps
+                "RT" -> quizQuestions = questionsTrends
+            }
+        }
+        "EY" -> {
+            when(course){
+                "CRT" -> quizQuestions = questionsCircuit
+                "S" -> quizQuestions = questionsSafety
+                "PG" -> quizQuestions = questionPowerGen
+                "RE" -> quizQuestions = questionsRenewEnergy
+                "M" -> quizQuestions = questionsMeasurement
+                "CRTL" -> quizQuestions = questionsControl
+                "PE" -> quizQuestions = questionsPowerElectronics
+                "ET" -> quizQuestions = questionsEmergingTech
+                "DSPPS" -> quizQuestions = questionsdspPS
+            }
+        }
+        "ES" -> {
+            when(course){
+                "AE" -> quizQuestions = analogElectronicsQuestions
+                "DE" -> quizQuestions = digitalElectronicsQuestions
+                "SCD" -> quizQuestions = semiconductorDevicesQuestions
+                "DSPE" -> quizQuestions = dspElectronicsQuestions
+                "CS" -> quizQuestions = communicationSystemsQuestions
+                "MR" -> quizQuestions = microwaveRadarQuestions
+                "ES" -> quizQuestions = embeddedSystemsQuestions
+                "AI" -> quizQuestions = aiElectronicsQuestions
+                "QC" -> quizQuestions = quantumComputingQuestions
+            }
+        }
     }
     val questions: ArrayList<Question> = ArrayList()
     quizQuestions.forEach {
@@ -114,7 +203,7 @@ fun QuizCard(
 @Composable
 fun QuestionCard(
     questions: ArrayList<Question>,
-    course: String,
+    course: String?,
     totalTime: Int = 10 ,
     navController: NavController
 ) {
@@ -149,9 +238,7 @@ fun QuestionCard(
     var progress by remember {
         mutableFloatStateOf(1f)
     }
-    var questionID by remember {
-        mutableIntStateOf(0)
-    }
+
 
     val textLayoutResult =
         remember(remainingTime.toString()) { textMeasurer.measure(remainingTime.toString()) }
@@ -188,10 +275,7 @@ fun QuestionCard(
 
 
 
-//
-//    var rotationState by remember {
-//        mutableFloatStateOf(value = if(flipped) 180f else 0f)
-//    }
+
     LaunchedEffect(remainingTime, count) {
 
         if (remainingTime > 0) {
@@ -199,7 +283,7 @@ fun QuestionCard(
             remainingTime--
             progress = remainingTime.toFloat() / totalTime
         }
-        if (remainingTime == 0 && count < 10) {
+        if (remainingTime <= 0 && count < 10) {
             delay(500)
             selectedQuestion = questions.random()
             tempQuestionList.add(selectedQuestion)
@@ -214,21 +298,6 @@ fun QuestionCard(
 
         }
 
-//        if(alreadyPicked){
-//            delay(500)
-//            selectedQuestion = questions.random()
-//            tempQuestionList.add(selectedQuestion)
-//            questions.remove(selectedQuestion)
-//            println(questions.contains(selectedQuestion))
-//            println(answers)
-//            println("Temp List $tempQuestionList")
-//            println("Perma List $questions")
-//            progress = remainingTime.toFloat() / totalTime
-//            remainingTime = totalTime
-//            count++
-//            alreadyPicked = false
-//        }
-
 
     }
     Column(
@@ -239,7 +308,7 @@ fun QuestionCard(
         var isFinished by remember {
             mutableStateOf(false)
         }
-        if (remainingTime == 0 && count >= 10){
+        if (remainingTime <= 0 && count >= 10){
 
             LaunchedEffect(isFinished){
                 delay(5000)
@@ -273,7 +342,7 @@ fun QuestionCard(
                             color = Color.White,
                             style = MaterialTheme.typography.headlineLarge,
                         )
-                        CorrectAnswers(tempQuestionList, answers)
+                        CorrectAnswers(tempQuestionList, answers, navController)
 
                     }
                     var launchCorrectAnswers by remember {
@@ -328,16 +397,18 @@ fun QuestionCard(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
-                    Text(
-                        text = course,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(4.dp),
-                        textAlign = TextAlign.Center,
-                        fontSize = 20.sp,
-                        style = MaterialTheme.typography.displayLarge,
-                        color = Color.DarkGray
-                    )
+                    if (course != null) {
+                        Text(
+                            text = course,
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(4.dp),
+                            textAlign = TextAlign.Center,
+                            fontSize = 20.sp,
+                            style = MaterialTheme.typography.displayLarge,
+                            color = Color.DarkGray
+                        )
+                    }
 
 
                     CircularProgressIndicator(
@@ -386,6 +457,7 @@ fun QuestionCard(
                 // Questions
                 Column(
                     modifier = Modifier.padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     // Question
                     Text(
@@ -411,7 +483,6 @@ fun QuestionCard(
 
 
                         }
-                        Text(text = isClicked.toString())
                         Button(
                             onClick = {
                                 selectedOption = option
@@ -464,160 +535,123 @@ fun QuestionCard(
 fun CorrectAnswers(
     questionList: List<Question>,
     answers: HashMap<Int, String>,
+    navController: NavController
 ) {
+    val scrollState = rememberScrollState()
 
-    val textStyle = MaterialTheme.typography.displayLarge
-    val fontSizeHead = 25.sp
-    val fontSizeBody = 20.sp
-    LazyRow(
+    Column(
         modifier = Modifier
-            .padding(10.dp)
-            .shadow(30.dp)
-            .background(Color.White, shape = RoundedCornerShape(20.dp))
-            .border(1.dp, Color.Black, RoundedCornerShape(20.dp))
-            .fillMaxSize()
-            .padding(10.dp),
+            .padding(vertical = 20.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .verticalScroll(scrollState)
+            .fillMaxSize(),
 
-        verticalAlignment = Alignment.CenterVertically
-    ){
-        item {
-            LazyColumn (
+    ) {
+        questionList.forEach { question ->
+
+            Card(
                 modifier = Modifier
-            ){
-                item {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
+                    .padding(vertical = 10.dp)
+                    .shadow(16.dp, RoundedCornerShape(20.dp)),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.White
+                )
+            ) {
+                Column (
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .fillMaxWidth()
+                ){
 
-                            Row(
-                                modifier = Modifier
-                                    .width(800.dp),
-                                horizontalArrangement = Arrangement.SpaceEvenly,
-                                verticalAlignment = Alignment.CenterVertically
-                            ){
-                                Text(text = "QID",
-                                    style = textStyle,
-                                    color =  Gray,
-                                    fontSize = fontSizeHead,
-                                    textAlign = TextAlign.Center,
-                                    modifier = Modifier
-                                        .width(100.dp)
-                                        .padding(20.dp)
-                                )
-                                Text(text = "Correct Answer",
-                                    style = textStyle,
-                                    color =  Gray,
-                                    fontSize = fontSizeHead,
-                                    textAlign = TextAlign.Center,
-                                    modifier = Modifier
-                                        .width(300.dp)
-                                        .padding(20.dp))
-                                Text(text = "Your Answer",
-                                    style = textStyle,
-                                    color =  Gray,
-                                    fontSize = fontSizeHead,
-                                    textAlign = TextAlign.Center,
-                                    modifier = Modifier
-                                        .width(200.dp)
-                                        .padding(20.dp))
-                            }
-                            var count = 0
-                            questionList.forEach {
-                                if(answers.keys.contains(it.questionID)){
-                                    Row(
-                                        modifier = Modifier
-                                            .width(800.dp)
-                                            .background(
-                                                color = if (count % 2 == 0) Color(0xFFD1D0D0) else Color.White,
-                                                RoundedCornerShape(20.dp)
-                                            )
-                                            .border(1.dp, Color.Black, RoundedCornerShape(20.dp)),
-                                        horizontalArrangement = Arrangement.SpaceEvenly,
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ){
-                                        Text(text = "${it.questionID}",
-                                            modifier = Modifier
-                                                .width(100.dp)
-                                                .padding(20.dp),
-                                            textAlign = TextAlign.Center,
-                                            fontSize = fontSizeBody,
-                                            color = if(it.correctAnswer == answers[it.questionID])Color(0xFF139B09) else Color(
-                                                0xFFEE0606
-                                            )
-                                        )
-                                        Text(text = it.correctAnswer,
-                                            modifier = Modifier
-                                                .width(300.dp)
-                                                .padding(20.dp),
-                                            textAlign = TextAlign.Center,
-                                            fontSize = fontSizeBody
-                                        )
-                                        Text(text = "${answers[it.questionID]}",
-                                            modifier = Modifier
-                                                .width(200.dp)
-                                                .padding(20.dp),
-                                            textAlign = TextAlign.Center,
-                                            fontSize = fontSizeBody,
-                                            color = if(it.correctAnswer == answers[it.questionID])Color(0xFF139B09) else Color(
-                                                0xFFEE0606
-                                            )
-                                        )
+                    if(answers.containsKey(question.questionID)){
+                        answers.entries.forEach {
+                            if(question.questionID == it.key){
+                                Text(text = question.question)
+                                    Column(
+                                        modifier = Modifier.padding(vertical = 20.dp)
+                                    ) {
+                                        for (option in question.options) {
+                                            Column (
+                                                modifier = Modifier.padding(vertical = 10.dp)
+                                            ){
+
+                                                if (option == it.value) {
+                                                    Text("Your answer: ", fontWeight = FontWeight.Bold)
+                                                    if (it.value == question.correctAnswer) {
+                                                        Row {
+                                                            Icon(
+                                                                imageVector = Icons.Rounded.Check,
+                                                                contentDescription = "Correct"
+                                                            )
+
+                                                            Text(text = option, color = Color(0xFF14AF14))
+                                                        }
+
+                                                    } else {
+                                                        Row {
+                                                            Icon(
+                                                                imageVector = Icons.Rounded.Close,
+                                                                contentDescription = "Incorrect"
+                                                            )
+                                                            Text(text = option, color = Color.Red)
+                                                        }
+
+                                                    }
+
+
+                                                } else {
+                                                    Text(text = option)
+                                                }
+                                            }
                                     }
 
-                                }else {
-                                    Row(
-                                        modifier = Modifier
-                                            .width(800.dp)
-                                            .background(
-                                                color = if (count % 2 == 0) Color(0xFFD1D0D0) else Color.White,
-                                                RoundedCornerShape(20.dp)
 
-                                            )
-                                            .border(1.dp, Color.Black, RoundedCornerShape(20.dp)),
-                                        horizontalArrangement = Arrangement.SpaceEvenly,
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ){
-                                        Text(text = "NO Answer",
-                                            modifier = Modifier
-                                                .width(100.dp)
-                                                .padding(20.dp),
-                                            textAlign = TextAlign.Center,
-                                            fontSize = fontSizeBody
-                                        )
-                                        Text(text = it.correctAnswer,
-                                            modifier = Modifier
-                                                .width(300.dp)
-                                                .padding(20.dp),
-                                            textAlign = TextAlign.Center,
-                                            fontSize = fontSizeBody
-                                        )
-                                        Text(text = "NO Answer",
-                                            modifier = Modifier
-                                                .width(200.dp)
-                                                .padding(20.dp),
-                                            textAlign = TextAlign.Center,
-                                            fontSize = fontSizeBody
-                                        )
-                                    }
                                 }
-                                count++
+                                Text(text = "Correct answer: ${question.correctAnswer}", fontStyle = FontStyle.Italic)
                             }
+
+
                         }
+                    } else {
+                        Text(text = "No Answer")
+                        Text(question.question)
 
+                            for (option in question.options) {
+                                if(option == question.correctAnswer){
+                                    Text(option, color = Color.LightGray)
+                                }else {
+                                    Text(text = option)
+                                }
+                            }
 
+                        Text(text = "Correct answer: ${question.correctAnswer}")
 
+                    }
                 }
-
 
             }
 
         }
-
-
-
+        Button(
+            onClick = {
+                navController.popBackStack()
+                navController.navigate(MainScreens.DASHBOARD.name)
+            },
+            modifier = Modifier
+                .padding(10.dp)
+                .shadow(16.dp)
+                .height(50.dp)
+                .fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Gold
+            ),
+            shape = RoundedCornerShape(10.dp)
+        ) {
+            Text(text = "BACK TO HOME", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.displayLarge, fontSize = 15.sp)
+        }
     }
+
+
 }
 
 

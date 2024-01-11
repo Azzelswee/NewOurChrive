@@ -35,21 +35,22 @@ fun OurChriveApp(){
         }
         // BOUNCE MAIN-NAV
         composable(
-            MainScreens.READY.name+"{course}",
-            arguments = listOf(navArgument("course"){ type = NavType.StringType}),
+            MainScreens.READY.name+"/{course}/{program}",
+            arguments = listOf(navArgument("course"){ type = NavType.StringType}, navArgument("program"){type = NavType.StringType}),
             exitTransition = {
                 fadeOut()
             }
         ){
-            it.arguments?.getString("course")?.let {
-                course -> Bounce(navController = navController, course = course)
-            }
+            val course = it.arguments?.getString("course")
+            val program = it.arguments?.getString("program")
+
+            Bounce(course = course, navController = navController, program = program)
 
         }
         // QUIZ MAIN-NAV
         composable(
-            MainScreens.QUIZ.name+"{course}",
-            arguments = listOf(navArgument("course"){ type = NavType.StringType}),
+            MainScreens.QUIZ.name+"/{course}/{program}",
+            arguments = listOf(navArgument("course"){ type = NavType.StringType}, navArgument("program"){type = NavType.StringType}),
             enterTransition = {
                 slideInVertically(
                     animationSpec = tween(500, 500)
@@ -59,9 +60,13 @@ fun OurChriveApp(){
 //            it.arguments?.getString("course")?.let {
 //                course -> QuizScreen(navController = navController, course = course)
 //            }
-            it.arguments?.getString("course")?.let {
-                course -> QuizCard(navController,course)
-            }
+            val course = it.arguments?.getString("course")
+            val program = it.arguments?.getString("program")
+
+            QuizCard(course = course, navController = navController, program = program)
+
+
+
 
         }
 

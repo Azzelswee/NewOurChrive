@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -23,7 +24,7 @@ import com.example.newourchrive.ui.theme.RedOrange
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CourseCard(course: CourseCodes, navController: NavController){
+fun CourseCard(program: String,course: CourseCodes, navController: NavController){
 
     Card(
         modifier = Modifier
@@ -31,8 +32,7 @@ fun CourseCard(course: CourseCodes, navController: NavController){
             .height(100.dp)
             .fillMaxWidth(),
         onClick = {
-            println(course.name)
-            navController.navigate(MainScreens.READY.name+course.name)
+            navController.navigate(MainScreens.READY.name + "/${course.code}/$program")
         },
         colors = CardDefaults.cardColors(
             containerColor = RedOrange,
@@ -43,10 +43,9 @@ fun CourseCard(course: CourseCodes, navController: NavController){
             Row(
                 modifier = Modifier.fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(50.dp,Alignment.CenterHorizontally)
+                horizontalArrangement = Arrangement.Center
             ) {
-                Text(text = course.code.uppercase(), fontSize = 20.sp)
-                Text(text = course.name, fontSize = 20.sp)
+                Text(text = course.name, fontSize = 20.sp, textAlign = TextAlign.Center)
             }
 
 

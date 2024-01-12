@@ -1,6 +1,7 @@
 package com.example.newourchrive
 
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.runtime.Composable
@@ -20,7 +21,6 @@ import com.example.newourchrive.screens.quiz.QuizCard
 
 @Composable
 fun OurChriveApp(){
-
 
     val navController: NavHostController = rememberNavController()
 
@@ -52,9 +52,7 @@ fun OurChriveApp(){
             MainScreens.QUIZ.name+"/{course}/{program}",
             arguments = listOf(navArgument("course"){ type = NavType.StringType}, navArgument("program"){type = NavType.StringType}),
             enterTransition = {
-                slideInVertically(
-                    animationSpec = tween(500, 500)
-                )
+                fadeIn()
             }
         ){
 //            it.arguments?.getString("course")?.let {

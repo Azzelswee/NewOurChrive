@@ -395,20 +395,20 @@ fun QuestionCard(
                         .fillMaxWidth()
                         .padding(20.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceAround
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    if (course != null) {
-                        Text(
-                            text = course,
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(4.dp),
-                            textAlign = TextAlign.Center,
-                            fontSize = 20.sp,
-                            style = MaterialTheme.typography.displayLarge,
-                            color = Color.DarkGray
-                        )
-                    }
+//                    if (course != null) {
+//                        Text(
+//                            text = course,
+//                            modifier = Modifier
+//                                .weight(1f)
+//                                .padding(4.dp),
+//                            textAlign = TextAlign.Center,
+//                            fontSize = 20.sp,
+//                            style = MaterialTheme.typography.displayLarge,
+//                            color = Color.DarkGray
+//                        )
+//                    }
 
 
                     CircularProgressIndicator(
@@ -446,7 +446,6 @@ fun QuestionCard(
                     Text(
                         text = "$count/${questionSize} ",
                         modifier = Modifier
-                            .weight(1f)
                             .wrapContentSize(),
                         textAlign = TextAlign.Center,
                         fontSize = 20.sp,
@@ -581,7 +580,8 @@ fun CorrectAnswers(
                                                         Row {
                                                             Icon(
                                                                 imageVector = Icons.Rounded.Check,
-                                                                contentDescription = "Correct"
+                                                                contentDescription = "Correct",
+                                                                tint = Color(0xFF14AF14)
                                                             )
 
                                                             Text(text = option, color = Color(0xFF14AF14))
@@ -591,7 +591,7 @@ fun CorrectAnswers(
                                                         Row {
                                                             Icon(
                                                                 imageVector = Icons.Rounded.Close,
-                                                                contentDescription = "Incorrect"
+                                                                contentDescription = "Incorrect",tint = Color.Red
                                                             )
                                                             Text(text = option, color = Color.Red)
                                                         }

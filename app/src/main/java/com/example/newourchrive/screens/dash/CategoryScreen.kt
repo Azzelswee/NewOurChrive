@@ -13,8 +13,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
@@ -42,6 +44,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -59,6 +62,7 @@ import com.example.newourchrive.bottomNavIcons
 import com.example.newourchrive.navigation.DashboardCategory
 import com.example.newourchrive.navigation.DashboardMain
 import com.example.newourchrive.navigation.MainScreens
+import com.example.newourchrive.ui.theme.Gold
 import com.example.newourchrive.ui.theme.RedOrange
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "RememberReturnType")
@@ -83,7 +87,10 @@ fun DashboardScreen(
 
     Scaffold (
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = RedOrange,
+                modifier = Modifier.height(60.dp)
+            ) {
 
                 bottomNavIcons.forEachIndexed { index, item ->
 
@@ -104,9 +111,9 @@ fun DashboardScreen(
                             )
                         },
                         colors = NavigationBarItemDefaults.colors(
-                            unselectedIconColor = MaterialTheme.colorScheme.primary,
+                            unselectedIconColor = Color(0xFFA73232),
                             indicatorColor = Color.Unspecified,
-                            disabledIconColor = RedOrange
+                            disabledIconColor = Color.White
                         ),
                         enabled = selectedItem != index
                     )
@@ -136,6 +143,7 @@ fun DashboardScreen(
                     ) {
                         Text(text = program.uppercase(), fontWeight = FontWeight.ExtraBold, fontSize = 20.sp, modifier = Modifier.padding(20.dp))
                         CourseListScreen(navController = navController, program = program)
+
                     }
 
                 }
@@ -166,7 +174,6 @@ fun IconCard(categoryButtons: CategoryButtons, dashNavController: NavController)
             containerColor = RedOrange
         ),
         modifier = Modifier
-            .padding(10.dp)
             .clickable(
                 onClick = {
                     dashNavController.navigate(DashboardCategory.CourseListScreen.name + categoryButtons.code)
@@ -176,13 +183,12 @@ fun IconCard(categoryButtons: CategoryButtons, dashNavController: NavController)
     ) {
         Column (
             modifier = Modifier
-                .fillMaxSize()
                 .padding(20.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Image(painter = painterResource(id = categoryButtons.iconId), contentDescription = categoryButtons.name, modifier = Modifier.size(100.dp))
-            Text(text = categoryButtons.name, color = Color.White, fontSize = 2.em)
+            Image(painter = painterResource(id = categoryButtons.iconId), contentDescription = categoryButtons.name, modifier = Modifier.size(110.dp))
+            Text(text = categoryButtons.name, color = Color.White, fontSize = 2.em, textAlign = TextAlign.Center)
         }
 
     }

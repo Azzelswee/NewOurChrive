@@ -153,11 +153,11 @@ fun DashboardScreen(
 
             // PROFILE
             composable(route = DashboardMain.PROFILE.name){
-                Text(text = "Profile Screen")
+                Profile(dashNavController = dashNavController)
             }
             // SETTINGS
             composable(route = DashboardMain.SETTINGS.name){
-                Text(text = "Settings Screen")
+                Settings(dashNavController = dashNavController)
             }
 
         }
